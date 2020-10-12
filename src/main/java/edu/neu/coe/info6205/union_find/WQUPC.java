@@ -55,13 +55,14 @@ public class WQUPC {
         validate(p);
         int root = p;
         while (root != parent[root]) {
+            parent[root] = parent[parent[root]];
             root = parent[root];
         }
-        while (p != root) {
+        /*while (p != root) {
             int newp = parent[p];
             parent[p] = root;
             p = newp;
-        }
+        }*/
         return root;
     }
 

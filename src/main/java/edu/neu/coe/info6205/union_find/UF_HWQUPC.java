@@ -23,6 +23,11 @@ public class UF_HWQUPC implements UF {
         if (!isConnected(p, q)) union(p, q);
     }
 
+    public void connect2(int p, int q) {
+        if (!isConnected(p, q)) union2(p, q);
+    }
+
+
     /**
      * Initializes an empty union–find data structure with {@code n} sites
      * {@code 0} through {@code n-1}. Each site is initially in its own
@@ -92,6 +97,23 @@ public class UF_HWQUPC implements UF {
         return root;
     }
 
+    public int find2(int p) {
+        validate(p);
+        int root = p;
+        int init = p;
+        while (root != parent[root]){
+            root = parent[root];
+        }
+
+        while(root != init) {
+            int x = parent[init];
+            parent[init] = root;
+            init = x;
+        }
+
+        return root;
+    }
+
     /**
      * Returns true if the the two sites are in the same component.
      *
@@ -118,6 +140,11 @@ public class UF_HWQUPC implements UF {
     public void union(int p, int q) {
         // CONSIDER can we avoid doing find again?
         mergeComponents(find(p), find(q));
+        count--;
+    }
+
+    public void union2(int p, int q) {
+        mergeComponents(find2(p), find2(q));
         count--;
     }
 
@@ -185,6 +212,15 @@ public class UF_HWQUPC implements UF {
             updateParent(j, i);
             updateHeight(i, j);
         }
+
+        /*if (height[i] < height[j]) {
+            updateParent(i, j);
+        } else  if (height[i] > height[j]) {
+            updateParent(j, i);
+        } else {
+            updateParent(i, j);
+            height[j]++;
+        }*/
     }
 
     /**
